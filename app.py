@@ -1,12 +1,16 @@
 import streamlit as st
 import praw
 
-# Initialize Reddit API client
-reddit = praw.Reddit(
-    client_id=st.secrets["reddit"]["client_id"],
-    client_secret=st.secrets["reddit"]["client_secret"],
-    user_agent=st.secrets["reddit"]["user_agent"],
-)
+try:
+    reddit = praw.Reddit(
+        client_id=st.secrets["reddit"]["client_id"],
+        client_secret=st.secrets["reddit"]["client_secret"],
+        user_agent=st.secrets["reddit"]["user_agent"],
+    )
+    st.success("Reddit API initialized successfully.")
+except Exception as e:
+    st.error(f"Failed to initialize Reddit API: {e}")
+
 
 # Initialize session state for shared browsing
 if "post_index" not in st.session_state:
